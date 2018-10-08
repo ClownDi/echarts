@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link type="text/css" href="css/selectpick.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/echarts/3.5.4/echarts.min.js"></script>
+	<script type="text/javascript" src="js/selectpick.js"></script>
+	<script src="js/app.js"></script>
+
+</head>
+<body>
+	<div class="bg_box wid-100">
+		<div class="wid-1000 box_ac">
+			<div class="head">
+				<div class="logo left">
+					<img src="images/logo.png">
+				</div>
+
+				<div class="right user_menu">
+					<a href="#" class="notice"><span><i class="hide"></i></span></a>
+					<a href="#" class="news"><span><i class="show"></i></span></a>
+					<a href="#" class="user_icon"><img src="images/user_icon.png"><span class="user_name">飞奔的蜗牛</span></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			<div class="schedule_box">
+				<div class="region">
+					<div class="region_select" style="width:147px;"></div>
+					<select id="region_select">
+						<option value="全部区域">全部区域</option>
+						<option value="区域1">区域1</option>
+						<option value="区域2">区域2</option>
+						<option value="区域3">区域3</option>
+						<option value="区域4">区域4</option>
+						<option value="区域5">区域5</option>
+					</select>
+				</div>
+				<div class="schedule_nav">
+					<ul>
+						<li><span>全国区域工程进度</span></li>
+						<li  class="active"><span>各区域详细项目进度</span></li>
+						<li><span>问题项目</span></li>
+					</ul>
+				</div>
+			<div class="nav_box left">
+				<ul>
+					<li class="active">
+						<a href="#">
+							<img src="images/index_18.png">
+							<p>全国区域工程进度</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/index_21.png">
+							<p>项目成本分析</p>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="images/index_23.png">
+							<p>验收管理</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="chart_box left">
+                <div class="chart_til">安徽区域各项进度</div>
+				<div class="chart">
+					<div id="main"></div>
+				</div>
+
+				<div class="jd_box">
+					<div class="jd_til">工程进度总览-详细数据</div>
+                    <div class="jd" id="schedule">
+                   	  <table width="100%" border="0" cellpadding="0">
+                    	  <tr class="table_til">
+                    	    <td width="190">项目名称</td>
+                    	    <td width="147">项目号</td>
+                    	    <td width="122">PO号</td>
+                    	    <td width="85">PO状态</td>
+                    	    <td width="60">......</td>
+                    	    <td width="120">PO完成进度</td>
+                    	    <td width="110">成本管理1</td>
+                    	    <td width="110">成本管理2</td>
+                    	    <td width="110">成本管理3</td>
+                  	    </tr>
+                    	<tr v-for="item in UserList">
+                    	    <td>{{ item.itemName }}</td>
+                    	    <td>{{ item.itemNumber }}</td>
+                    	    <td>{{ item.poNumber}}</td>
+                    	    <td>{{ item.poState}}</td>
+                    	    <td>{{ item.sl}}</td>
+                    	    <td>{{ item.poSpeed}}</td>
+                    	    <td>{{ item.cost1}}</td>
+                    	    <td>{{ item.cost2}}</td>
+                    	    <td>{{ item.cost3}}</td>
+                  	    </tr>
+
+                  	  </table>
+                    </div>
+				</div>
+
+				<div class="page_next">
+					<a href="#" class="prev">< 上一页</a>
+					<a href="#" class="next">下一页 ></a>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		</div>
+
+
+	</div>
+<script type="text/javascript">
+	var myChart = echarts.init(document.getElementById('main'));
+    var qyname =${str};
+    var jddata = ${percent};
+var option = {
+    title: {
+        text: '',
+        subtext: ''
+    },
+     legend: {
+        selected: { 
+            myChart : true }
+        },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    grid: {
+        left: '1%',
+        right: '6%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        name:"进度/%",
+        max:"100",
+        axisLine: {
+                show: true
+            },
+        axisTick: {
+                show: false
+            },
+        axisLabel: {  
+                  show: true,  
+                  interval: 'auto',  
+                  formatter: '{value} %'  
+                },  
+
+    },
+    yAxis: {
+        type: 'category',
+         name:"区域/名称",
+        data: qyname,
+    },
+    series: [
+        {
+            name: '工程进度',
+            type: 'bar',
+            data: jddata,
+            markPoint : {
+                data : [
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            barWidth : 34,
+            label: {
+            normal: {
+                show: true,
+                position: 'insideRight',
+                formatter: '{c}%' 
+            }
+        },
+        itemStyle: {
+                    emphasis: {
+                        barBorderRadius: 0
+                    },
+                    normal: {
+                        barBorderRadius: 0,
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0,
+                            [
+                                {offset: 0, color: '#16abcb'},
+                                {offset: 1, color: '#84e1f5'}
+
+                            ]
+                        )
+                        
+                    }
+                }
+        }
+    ]
+};
+myChart.setOption(option);
+myChart.on('click', function (param){  
+                    var name=param.name;  
+                    if(name=="浙江区域"){  
+                        window.location.href="index.html";  
+                    }else if(name=="安徽区域"){  
+                        window.location.href="index.html";  
+                    }else if(name=="湖南区域"){  
+                        window.location.href="index.html";  
+                   }else{  
+                    window.location.href="index.html";  
+                   }                      
+                });
+
+var app = new Vue({         
+    el: '#schedule',               
+    data: {                   
+     UserList: ${paging}
+    },
+    mounted: function() {
+        this.$nextTick(function () {
+          this.$http.jsonp('http://***.com').then(function(res) {
+            console.log(res.data)
+            this.UserList = res.data;
+          })
+        })
+      }
+  }); 
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

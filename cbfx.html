@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" href="css/selectpick.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/3.5.4/echarts.min.js"></script>
+    <script type="text/javascript" src="js/selectpick.js"></script>
+    <script src="js/app.js"></script>
+
+</head>
+<body>
+    <div class="bg_box wid-100">
+        <div class="wid-1000 box_ac">
+            <div class="head">
+                <div class="logo left">
+                    <img src="images/logo.png">
+                </div>
+
+                <div class="right user_menu">
+                    <a href="#" class="notice"><span><i class="hide"></i></span></a>
+                    <a href="#" class="news"><span><i class="show"></i></span></a>
+                    <a href="#" class="user_icon"><img src="images/user_icon.png"><span class="user_name">飞奔的蜗牛</span></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="schedule_box">
+                <div class="region region_qy">
+                    <div class="region_select select_li" style="width:147px;">
+                    <select id="region_select">
+                        <option value="全部区域">全部区域</option>
+                        <option value="区域1">区域1</option>
+                        <option value="区域2">区域2</option>
+                        <option value="区域3">区域3</option>
+                        <option value="区域4">区域4</option>
+                        <option value="区域5">区域5</option>
+                    </select>
+                    </div>
+                    <div class="region_selects select_li" style="width:147px;">
+                    <select id="region_selects">
+                        <option value="安徽">安徽</option>
+                        <option value="浙江">浙江</option>
+                        <option value="浙江">浙江</option>
+                        <option value="湖南">湖南</option>
+                        <option value="湖北">湖北</option>
+                        <option value="陕西">陕西</option>
+                    </select>
+                    </div>
+                    <div class="region_selectss select_li" style="width:147px;">
+                    <select id="region_selectss">
+                        <option value="项目名称">项目名称</option>
+                        <option value="项目名称">项目名称</option>
+                        <option value="项目名称">项目名称</option>
+                        <option value="项目名称">项目名称</option>
+                        <option value="项目名称">项目名称</option>
+                        <option value="项目名称">项目名称</option>
+                    </select>
+                    </div>
+                    <div class="seach_box select_li">
+                        <input type="text" name="seach" placeholder="项目名称搜索" id="seach">
+                        <button type="button" id="seach_btn"><img src="images/seach.png"></button>
+                    </div>
+                </div>
+                <div class="schedule_nav">
+                    <ul>
+                        <li class="active"><span>项目成本分析</span></li>
+                    </ul>
+                </div>
+            <div class="nav_box left">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="images/gcjd.png">
+                            <p>全国区域工程进度</p>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a href="#">
+                            <img src="images/cbfx_a.png">
+                            <p>项目成本分析</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="images/index_23.png">
+                            <p>验收管理</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="chart_box left">
+                <div class="chart_til">工程项目综合成本率</div>
+                <div class="chart">
+                    <div id="main"></div>
+                </div>
+
+                <div class="jd_box">
+                    <div class="jd_til">工程进度总览-详细数据</div>
+                    <div class="jd" id="schedule">
+                      <table border="0" cellpadding="0">
+                          <tr class="table_til">
+                                <td class="xm_name">大区属性</td>
+                                <td class="pozt">所属区域</td>
+                                <td class="xm_name">项目名称</td>
+                                <td class="xm_number">项目号</td>
+                                <td class="po_number">PO号</td>
+                                <td class="pozt">PO状态</td>
+                                <td class="xm_name">PO项目名称</td>
+                                <td class="po_number">Po项目编码</td>
+                                <td class="po_number">母局</td>
+                                <td class="zda">需求数量</td>
+                                <td class="zda">已完成数量</td>
+                                <td class="pojd">PO完成进度</td>
+                                <td class="zda">PO单站验证及时率</td>
+                                <td class="zda">PO金额</td>
+                                <td class="zda">PO下发日期</td>
+                                <td class="xm_name">PO提交验收日期</td>
+                                <td class="xm_name">PO验收审批通过日期</td>
+                                <td class="zda">开票日期</td>
+                                <td class="xm_name">华为PO发票接收日期</td>
+                                <td class="zda">PO执行周期</td>
+                                <td class="zda">PO验收周期</td>
+                                <td class="zda">PO开票周期</td>
+                            </tr>
+                            <tr>
+                                <td class="xm_name">一大区</td>
+                                <td class="pozt">浙江</td>
+                                <td class="xm_name">华为-舟山联通日常优化2017</td>
+                                <td class="xm_number">HW-ZJLT-2017-011</td>
+                                <td class="po_number">IBUY88608-30</td>
+                                <td class="pozt">0</td>
+                                <td class="xm_name">2017年浙江联通网优集采项目(舟山集中优化）</td>
+                                <td class="po_number">561994E</td>
+                                <td class="po_number">舟山</td>
+                                <td class="zda">4</td>
+                                <td class="zda">4</td>
+                                <td class="pojd">100%</td>
+                                <td class="zda"></td>
+                                <td class="zda">202859.74</td>
+                                <td class="zda">2017年11月21日</td>
+                                <td class="xm_name">2017年11月21日</td>
+                                <td class="xm_name">2017年11月21日</td>
+                                <td class="zda">2017年11月21日</td>
+                                <td class="xm_name">2017年11月21日</td>
+                                <td class="zda">197</td>
+                                <td class="zda">0</td>
+                                <td class="zda">5</td>
+                            </tr>
+
+                      </table>
+                    </div>
+                </div>
+
+                <div class="page_next">
+                    <a href="#" class="prev">< 上一页</a>
+                    <a href="#" class="next">下一页 ></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        </div>
+
+
+    </div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var qyname =['区域1', '区域2', '区域3', '区域4', '区域5'];
+    var xmcb = ['60','20','25','25','33'];
+    var htwc = ['50','10','10','8','3'];
+    var mlr = [11, 11, 15, 13, 12, 13, 10];
+    var option = {
+    title: {
+        text: ''
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        data: ['项目成本比例', '项目合同完成率','毛利润'],
+        align: 'left',
+        right: 10
+    },
+    grid: {
+        left: '3%',
+        right: '8%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [{
+        type: 'category',
+        name: '区域/名称',
+        data: qyname
+    }],
+    yAxis: [{
+        type: 'value',
+        name: '进度/%',
+        axisLabel: {
+            formatter: '{value}%'
+        },
+        max:100
+    }],
+    series: [{
+        name: '项目成本比例',
+        type: 'bar',
+        data: [20, 12, 31, 34, 31],
+        barWidth : 30,
+        itemStyle: {
+                normal: {
+                    show: true,
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#85e2f6'
+                    }, {
+                        offset: 1,
+                        color: '#16abcb'
+                    }]),
+                    barBorderRadius: 0,
+                    borderWidth: 0,
+                    borderColor: '#fff',
+                }
+            }
+    }, {
+        name: '项目合同完成率',
+        type: 'bar',
+        data: [10, 20, 5, 9, 3],
+        barWidth : 30,
+        itemStyle: {
+                normal: {
+                    show: true,
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#8eb9f7'
+                    }, {
+                        offset: 1,
+                        color: '#406dce'
+                    }]),
+                    barBorderRadius: 0,
+                    borderWidth: 0,
+                    borderColor: '#333',
+                }
+            }
+    },
+    {
+            name:'毛利润',
+            type:'line',
+            data:mlr,
+            itemStyle : {  
+                                normal : {  
+                                    color:'#f9bf50',
+                                    lineStyle:{  
+                                        color:'#f9bf50'  
+                                    }  
+                                }  
+                            }
+         }],
+};
+myChart.setOption(option);
+myChart.on('click', function (param){  
+                    var name=param.name;  
+                    if(name=="浙江区域"){  
+                        window.location.href="qyjd.html";  
+                    }else if(name=="安徽区域"){  
+                        window.location.href="qyjd.html";  
+                    }else if(name=="湖南区域"){  
+                        window.location.href="qyjd.html";  
+                   }else{  
+                    window.location.href="qyjd.html";  
+                   }                      
+                }); 
+
+var app = new Vue({         
+    el: '#schedule',               
+    data: {                   
+     UserList: [
+      {'itemName': '华为-宁波联通工程优化2016a', 'itemNumber': "HW-ZJLI-2016 188", 'poNumber': 'IBUY58609-10','poState': '在途订单','sl': '...','poSpeed': '20.5%','cost1': '字段1','cost2': '字段2','cost3': '字段3'},
+     ]
+    },
+    mounted: function() {
+        this.$nextTick(function () {
+          this.$http.jsonp('http://***.com').then(function(res) {
+            console.log(res.data)
+            this.UserList = res.data;
+          })
+        })
+      }
+  }); 
+$("#region_selects").selectpick({
+            container: '.region_selects',
+            onSelect: function(value,text){
+                console.log(value+" \n选中的下拉框文本："+text);
+            }
+        });
+$("#region_selectss").selectpick({
+            container: '.region_selectss',
+            onSelect: function(value,text){
+                console.log(value+" \n选中的下拉框文本："+text);
+            }
+        });
+console.log($("#schedule table").width)
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

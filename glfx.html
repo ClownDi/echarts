@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" href="css/selectpick.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/3.5.4/echarts.min.js"></script>
+    <script type="text/javascript" src="js/selectpick.js"></script>
+    <script src="js/app.js"></script>
+
+</head>
+<body>
+    <div class="bg_box wid-100">
+        <div class="wid-1000 box_ac">
+            <div class="head">
+                <div class="logo left">
+                    <img src="images/logo.png">
+                    <span><em>明讯项目管控平台 SPMP V1.2</em>
+Sunbelt Project M&C Platform</span>
+                </div>
+
+                <div class="right user_menu">
+                    <a href="#" class="notice"><span><i class="hide"></i></span></a>
+                    <a href="#" class="news"><span><i class="show"></i></span></a>
+                    <a href="#" class="user_icon"><img src="images/user_icon.png"><span class="user_name">飞奔的蜗牛</span></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="schedule_box">
+                <div class="region region_qy">
+                    <div class="region_select select_li" style="width:147px;">
+                    <select id="region_select">
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                    </select>
+                    </div>
+                    <div class="region_selects select_li" style="width:147px;">
+                    <select id="region_selects">
+                        <option value="全部">全部</option>
+                        <option value="区域1">浙江</option>
+                        <option value="区域2">河南</option>
+                        <option value="区域3">湖南</option>
+                        <option value="区域4">湖北</option>
+                        <option value="区域5">陕西</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="schedule_nav">
+                    <ul>
+                        <li><span>PO验收管理</span></li>
+                        <li class="active"><span>1PTP周期管理分析</span></li>
+                    </ul>
+                </div>
+            <div class="nav_box left">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="images/gcjd.png">
+                            <p>全国区域工程进度</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="images/index_21.png">
+                            <p>项目成本分析</p>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a href="#">
+                            <img src="images/ysgl_a.png">
+                            <p>验收管理</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="chart_box left">
+                <div class="chart_til">工程项目综合成本率</div>
+                <div class="chart">
+                    <div id="main"></div>
+                </div>
+
+                <div class="jd_box">
+                    <div class="jd_til">工程进度总览-详细数据</div>
+                    <div class="jd" id="schedule">
+                      <table width="100%" border="0" cellpadding="0">
+                          <tr class="table_til">
+                            <td width="190">项目名称</td>
+                            <td width="147">项目号</td>
+                            <td width="122">PO号</td>
+                            <td width="85">PO状态</td>
+                            <td width="60">......</td>
+                            <td width="120">PO完成进度</td>
+                            <td width="110">成本管理1</td>
+                            <td width="110">成本管理2</td>
+                            <td width="110">成本管理3</td>
+                        </tr>
+                        <tr v-for="item in UserList">
+                            <td>{{ item.itemName }}</td>
+                            <td>{{ item.itemNumber }}</td>
+                            <td>{{ item.poNumber}}</td>
+                            <td>{{ item.poState}}</td>
+                            <td>{{ item.sl}}</td>
+                            <td>{{ item.poSpeed}}</td>
+                            <td>{{ item.cost1}}</td>
+                            <td>{{ item.cost2}}</td>
+                            <td>{{ item.cost3}}</td>
+                        </tr>
+
+                      </table>
+                    </div>
+                </div>
+
+                <div class="page_next">
+                    <a href="#" class="prev">< 上一页</a>
+                    <a href="#" class="next">下一页 ></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        </div>
+
+
+    </div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var qyname =['杭州','苏州','江苏','河南','郑州','全国'];
+    var kfzq = [18,192,25,48,26,24];
+    var yszq = [30,10,365,80,75,60];
+    var zxzq = [68,35,80,87,98,80];
+    var zzq = new  Array();
+    for(var i=0;i<kfzq.length;i++){
+        zzq[i]=kfzq[i]+yszq[i]+zxzq[i]
+    }
+    var xmaxarr = zzq;
+    xmaxarr.sort(function(a,b){return a-b;})
+    var xmax=xmaxarr[xmaxarr.length-1]+50;
+    var option = {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        data: ['开发周期', 'PO验收周期','PO执行周期','总周期']
+    },
+    grid: {
+        left: '3%',
+        right: '6%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis:  {
+        type: 'value',
+        min:0,
+        name:"时间/天",
+        max:xmax
+    },
+    yAxis: {
+        type: 'category',
+        name:"区域/名称",
+        data: qyname
+    },
+    series: [
+        {
+            name: '开发周期',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside',
+                    textStyle: {
+                         fontSize: 20
+                      }
+                }
+            },
+            data: kfzq,
+             itemStyle: {
+                normal: {
+                    show: true,
+                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 1,
+                        color: '#fdd384'
+                    }, {
+                        offset: 0,
+                        color: '#f98b2c'
+                    }]),
+                }
+            }
+        },
+        {
+            name: 'PO验收周期',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside',
+                    textStyle: {
+                         fontSize: 20
+                      }
+                }
+            },
+            data: yszq,
+             itemStyle: {
+                normal: {
+                    show: true,
+                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 1,
+                        color: '#8eb8f6'
+                    }, {
+                        offset: 0,
+                        color: '#3f6cce'
+                    }]),
+                    barBorderRadius: 0,
+                    borderWidth: 0,
+                    borderColor: '#fff',
+                }
+            }
+        },
+        {
+            name: 'PO执行周期',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside',
+                    textStyle: {
+                         fontSize: 20
+                      }
+                }
+            },
+            data: zxzq,
+             itemStyle: {
+                normal: {
+                    show: true,
+                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 1,
+                        color: '#83dff3'
+                    }, {
+                        offset: 0,
+                        color: '#1098b6'
+                    }]),
+                    barBorderRadius: 0,
+                    borderWidth: 0,
+                    borderColor: '#fff',
+                }
+            }
+        },
+        {
+            name: '总周期',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideLeft',
+                      textStyle:{
+                        color:"#333399",
+                        fontSize: 20
+                    }
+                }
+            },
+            data: zzq,
+            itemStyle:{
+                normal:{
+                    color:'rgba(0, 0, 0, 0)'
+                }
+            }
+        }
+    ]
+};
+myChart.setOption(option);
+myChart.on('click', function (param){  
+                    var name=param.name;  
+                    if(name=="浙江区域"){  
+                        window.location.href="qyjd.html";  
+                    }else if(name=="安徽区域"){  
+                        window.location.href="qyjd.html";  
+                    }else if(name=="湖南区域"){  
+                        window.location.href="qyjd.html";  
+                   }else{  
+                    window.location.href="qyjd.html";  
+                   }                      
+                }); 
+
+var app = new Vue({         
+    el: '#schedule',               
+    data: {                   
+     UserList: [
+      {'itemName': '华为-宁波联通工程优化2016a', 'itemNumber': "HW-ZJLI-2016 188", 'poNumber': 'IBUY58609-10','poState': '在途订单','sl': '...','poSpeed': '20.5%','cost1': '字段1','cost2': '字段2','cost3': '字段3'},
+     ]
+    },
+    mounted: function() {
+        this.$nextTick(function () {
+          this.$http.jsonp('http://***.com').then(function(res) {
+            console.log(res.data)
+            this.UserList = res.data;
+          })
+        })
+      }
+  }); 
+$("#region_selects").selectpick({
+            container: '.region_selects',
+            onSelect: function(value,text){
+                console.log(value+" \n选中的下拉框文本："+text);
+            }
+        });
+$("#region_selectss").selectpick({
+            container: '.region_selectss',
+            onSelect: function(value,text){
+                console.log(value+" \n选中的下拉框文本："+text);
+            }
+        });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
